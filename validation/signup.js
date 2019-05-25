@@ -14,11 +14,31 @@ module.exports = function validateSignup(user) {
   user.password = !isEmpty(user.password) ? user.password : '';
 
   // Validate Names
+  //--------------------------------------
+
+  // -First Name-
+
+  // If Empty
   if (Validator.isEmpty(user.firstName)) {
-    error.firstName = 'First Name Is Required';
+    // Input Required
+    errors.firstName = 'First Name Is Required';
   }
 
+  // -Last Name-
+
   if (Validator.isEmpty(user.lastName)) {
-    error.lastName = 'Last Name Is Required';
+    errors.lastName = 'Last Name Is Required';
+  }
+
+  // Validate Phone Number
+  //--------------------------------------
+  // If empty
+  if (Validator.isEmpty(user.phoneNumber)) {
+    // Input Required
+    errors.phoneNumber = 'Phone Number Is Required';
+    // If not valid mobile phone
+  } else if (!Validator.isMobilePhone(user.phoneNumber)) {
+    // Throw error
+    errors.phoneNumber = 'Phone Number is Not Valid';
   }
 };
