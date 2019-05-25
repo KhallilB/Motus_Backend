@@ -41,4 +41,16 @@ module.exports = function validateSignup(user) {
     // Throw error
     errors.phoneNumber = 'Phone Number is Not Valid';
   }
+
+  // Validate Email
+  //--------------------------------------
+  // If empty
+  if (Validator.isEmpty(user.email)) {
+    // Input Required
+    errors.phoneNumber = 'Email Is Required';
+    // If not valid email
+  } else if (!Validator.isEmail(user.email)) {
+    // Throw error
+    errors.email = 'Email Is Not Valid';
+  }
 };
