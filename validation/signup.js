@@ -12,4 +12,13 @@ module.exports = function validateSignup(user) {
   user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
   user.email = !isEmpty(user.email) ? user.email : '';
   user.password = !isEmpty(user.password) ? user.password : '';
+
+  // Validate Names
+  if (Validator.isEmpty(user.firstName)) {
+    error.firstName = 'First Name Is Required';
+  }
+
+  if (Validator.isEmpty(user.lastName)) {
+    error.lastName = 'Last Name Is Required';
+  }
 };
