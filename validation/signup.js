@@ -4,6 +4,7 @@ const Validator = require('validator');
 const isEmpty = require('is-empty');
 
 module.exports = function validateSignup(user) {
+  // Store Arrays to return later
   let errors = {};
 
   // Convert feilds to an empty string to use validator functions
@@ -12,6 +13,9 @@ module.exports = function validateSignup(user) {
   user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
   user.email = !isEmpty(user.email) ? user.email : '';
   user.password = !isEmpty(user.password) ? user.password : '';
+  user.passwordConfirm = !isEmpty(user.passwordConfirm)
+    ? user.passwordConfirm
+    : '';
 
   // Validate Names
   //--------------------------------------
@@ -53,4 +57,35 @@ module.exports = function validateSignup(user) {
     // Throw error
     errors.email = 'Email Is Not Valid';
   }
+
+  // Validate Password
+  //--------------------------------------
+  // If empty
+  if (Validator.isEmpty(user.password)) {
+    // Input Required
+    errors.password = 'Password Is Required';
+  }
+
+  if (Validator.isEmpty(user.passwordConfirm)) {
+    errors.password = 'Password Confirm Is Required';
+  }
+
+  // Check length of password
+  //--------------------------------------
+  // If the length is not bewtween of 8 and 24 characters
+  if (!Validator.isLength(user.password, { min: 8, max: 24 })) {
+    // Throw error
+    errors.password = 'Password must be at least 8 characters long';
+  }
+
+  // Match Password and Password Confirm
+  if (!Validator.equals(user.password, user.passwordConfirm)) {
+    errors.passwordConfirm = 'Passwords must match';
+  }
+
+  // Return any errors
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  };
 };
