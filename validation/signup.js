@@ -4,10 +4,10 @@ const Validator = require('validator');
 const isEmpty = require('is-empty');
 
 module.exports = function validateSignup(user) {
-  // Store Arrays to return later
+  // Store error array to return later
   let errors = {};
 
-  // Convert feilds to an empty string to use validator functions
+  // Convert fields to an empty string to use validator functions
   user.firstName = !isEmpty(user.firstName) ? user.firstName : '';
   user.lastName = !isEmpty(user.lastName) ? user.lastName : '';
   user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
