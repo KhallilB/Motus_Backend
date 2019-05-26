@@ -22,4 +22,17 @@ module.exports = function validateLogin(user) {
     // Throw Error
     errors.email = 'Email Is Not Valid';
   }
+
+  // Validate Password
+  //--------------------------------------
+  // If empty
+  if (Validator.isEmpty(user.password)) {
+    // Input Required
+    errors.email = 'Email Is Required';
+  }
+
+  return {
+    errors,
+    isValid: isEmpty(errors)
+  };
 };
