@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 const server = express();
 
+// Routes
+const rUsers = require('./routes/api/users');
+
 // Middleware
 server.use(
   bodyParser.urlencoded({
@@ -13,6 +16,8 @@ server.use(
 );
 
 server.use(bodyParser.json());
+
+server.use('/users', rUsers); // Using User Route
 
 // DB Config
 const db = require('./config/keys').MONGO_URI;
