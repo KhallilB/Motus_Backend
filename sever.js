@@ -2,6 +2,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
+const passport = require('passport');
+require('./config/passport');
 
 const server = express();
 
@@ -9,12 +13,14 @@ const server = express();
 const rUsers = require('./routes/api/users');
 
 // Middleware
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+
 server.use(
   bodyParser.urlencoded({
     extended: true
   })
 );
-
 server.use(bodyParser.json());
 
 server.use('/users', rUsers); // Using User Route
