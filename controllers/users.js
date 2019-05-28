@@ -15,7 +15,7 @@ module.exports.signUp = (req, res) => {
   // Form Validation
   const { errors, isValid } = validateSignUp(req.body);
 
-  // Check Validation
+  // Check input validation
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -51,5 +51,33 @@ module.exports.signUp = (req, res) => {
         return err;
       }
     }
+  });
+};
+
+// Authenticates a registered user using passport and returns a token
+module.exports.logIn = (req, res) => {
+  // Check input validations
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  passport.authenticate('local', (err, user, data) => {
+    // If we get an error
+    if (err) {
+      console.log(err);
+      return res.status(404).json(err);
+    }
+
+    // If no errors
+    if (user) {
+      // Log the user
+      console.log('USER: ', user);
+      // Set payload
+      const payload = { subject: user._id };
+      // Sign token with the secret key and payload
+      const token = jwt.sign(payload, keys.jwtSecret);
+      // Send token
+      res.status(200).send({ token });
+    } else return res.status(401).json(data);
   });
 };
