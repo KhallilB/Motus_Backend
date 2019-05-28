@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 // Create User Schema
@@ -36,8 +37,23 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  saltSecret: String
 });
 
-// Export User Schema
+// Pre-save hook that hashes User passwords save salt secret string
+UserSchema.pre('save', function(next) {
+  bcrypt.hash(this.password, salt, hash => {
+    this.password = hash;
+    this.saltSecret = salt;
+    next();
+  });
+});
+
+// So bcrypt doesnt compare hashed password
+UserSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+// Export User Schema model
 module.exports = User = mongoose.model('UserSchema', UserSchema);
