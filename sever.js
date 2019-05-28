@@ -8,9 +8,12 @@ const passport = require('passport');
 require('./config/passport');
 
 const server = express();
+//---------------------------------------------------------
 
 // Routes
 const rUsers = require('./routes/api/users');
+
+//---------------------------------------------------------
 
 // Middleware
 server.use(express.json());
@@ -24,6 +27,19 @@ server.use(
 server.use(bodyParser.json());
 
 server.use('/users', rUsers); // Using User Route
+
+server.use(cors());
+
+//  Passport
+server.use(passport.initialize());
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+//---------------------------------------------------------
 
 // DB Config
 const db = require('./config/keys').MONGO_URI;
