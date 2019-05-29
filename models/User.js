@@ -37,16 +37,27 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  },
-  saltSecret: String
+  }
 });
 
 // Pre-save hook thatsalts and hashes User passwords save salt secret string
 UserSchema.pre('save', function(next) {
+  let user = this;
+
+  // Only hash password if it has been modified or new
+  if (!user.isModified('password')) return next();
+
+  // Generate salt
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(this.password, salt, hash => {
-      this.password = hash;
-      this.saltSecret = salt;
+    if (err) return next(err);
+
+    // Hash the password
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next(err);
+
+      // Override password with hashed one
+      user.password = hash;
+      user.saltSecret = salt;
       next();
     });
   });

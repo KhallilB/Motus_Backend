@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const _ = require('lodash');
 const passport = require('passport');
 const keys = require('../config/keys');
 
@@ -64,11 +63,18 @@ module.exports.logIn = (req, res) => {
     return res.status(400).json(errors);
   }
 
+  console.log(req.body);
+
   passport.authenticate('local', (err, user, data) => {
     // If we get an error
     if (err) {
       console.log(err);
       return res.status(404).json(err);
+    }
+
+    // If we dont get user object
+    if (!user) {
+      console.log('Error: USER NOT FOUND');
     }
 
     // If no errors
@@ -83,5 +89,5 @@ module.exports.logIn = (req, res) => {
       res.status(200).send({ token });
       // Throw error
     } else return res.status(401).json(data);
-  });
+  })(req, res);
 };

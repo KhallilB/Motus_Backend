@@ -30,8 +30,9 @@ server.use('/users', rUsers); // Using User Route
 
 server.use(cors());
 
-//  Passport
+// Passport
 server.use(passport.initialize());
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
