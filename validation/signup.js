@@ -10,7 +10,7 @@ module.exports = function validateSignup(user) {
   // Convert fields to an empty string to use validator functions
   user.firstName = !isEmpty(user.firstName) ? user.firstName : '';
   user.lastName = !isEmpty(user.lastName) ? user.lastName : '';
-  // user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
+  user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
   user.email = !isEmpty(user.email) ? user.email : '';
   user.password = !isEmpty(user.password) ? user.password : '';
   user.passwordConfirm = !isEmpty(user.passwordConfirm)

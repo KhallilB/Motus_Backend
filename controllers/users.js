@@ -57,7 +57,7 @@ module.exports.signUp = (req, res) => {
 // Authenticates a registered user using passport and returns a token
 module.exports.logIn = (req, res) => {
   // Form Validation
-  const { errors, isValid } = validateSignUp(req.body);
+  const { errors, isValid } = validateLogIn(req.body);
 
   // Check input validations
   if (!isValid) {
@@ -81,7 +81,7 @@ module.exports.logIn = (req, res) => {
       const token = jwt.sign(payload, keys.jwtSecret);
       // Send token
       res.status(200).send({ token });
-      //
+      // Throw error
     } else return res.status(401).json(data);
   });
 };
