@@ -45,7 +45,7 @@ module.exports.signUp = (req, res) => {
     } else {
       // Error Handling
       if (err) {
-        res.status(422).send(['Duplicate Email found']);
+        res.status(422).send(['Error: ', err]);
         console.log(err);
       } else {
         return err;

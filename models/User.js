@@ -14,7 +14,11 @@ const UserSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: [true, 'Phone Number Required']
+    required: [true, 'Phone Number Required'],
+    match: [
+      /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/,
+      'Enter a valid phone number'
+    ]
   },
   email: {
     type: String,
@@ -30,7 +34,7 @@ const UserSchema = new Schema({
     required: [true, 'Password Required'],
     minlength: [8, 'Password must be at 8 characters long'],
     match: [
-      / ^(?=.*\d).{8,24}$/,
+      /^(?=.*\d).{8,24}$/,
       'Password must be between 8 and 24 characters long and include at least one numeric character'
     ]
   },
@@ -42,7 +46,7 @@ const UserSchema = new Schema({
 });
 
 // Pre-save hook that hashes User passwords save salt secret string
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function(next, salt) {
   bcrypt.hash(this.password, salt, hash => {
     this.password = hash;
     this.saltSecret = salt;
