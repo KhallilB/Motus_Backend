@@ -41,12 +41,14 @@ const UserSchema = new Schema({
   saltSecret: String
 });
 
-// Pre-save hook that hashes User passwords save salt secret string
-UserSchema.pre('save', function(next, salt) {
-  bcrypt.hash(this.password, salt, hash => {
-    this.password = hash;
-    this.saltSecret = salt;
-    next();
+// Pre-save hook thatsalts and hashes User passwords save salt secret string
+UserSchema.pre('save', function(next) {
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(this.password, salt, hash => {
+      this.password = hash;
+      this.saltSecret = salt;
+      next();
+    });
   });
 });
 
