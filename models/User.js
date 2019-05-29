@@ -14,11 +14,7 @@ const UserSchema = new Schema({
   },
   phoneNumber: {
     type: String,
-    required: [true, 'Phone Number Required'],
-    match: [
-      /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/,
-      'Enter a valid phone number'
-    ]
+    required: [true, 'Phone Number Required']
   },
   email: {
     type: String,

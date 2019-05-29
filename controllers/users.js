@@ -26,7 +26,7 @@ module.exports.signUp = (req, res) => {
   // Set user object properties to the form values
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
-  user.phoneNubmer = req.body.phoneNubmer;
+  user.phoneNumber = req.body.phoneNumber;
   user.email = req.body.email;
   user.password = req.body.password;
   // Check what user model looks like
@@ -56,6 +56,9 @@ module.exports.signUp = (req, res) => {
 
 // Authenticates a registered user using passport and returns a token
 module.exports.logIn = (req, res) => {
+  // Form Validation
+  const { errors, isValid } = validateSignUp(req.body);
+
   // Check input validations
   if (!isValid) {
     return res.status(400).json(errors);
@@ -78,6 +81,7 @@ module.exports.logIn = (req, res) => {
       const token = jwt.sign(payload, keys.jwtSecret);
       // Send token
       res.status(200).send({ token });
+      //
     } else return res.status(401).json(data);
   });
 };

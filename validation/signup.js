@@ -10,7 +10,7 @@ module.exports = function validateSignup(user) {
   // Convert fields to an empty string to use validator functions
   user.firstName = !isEmpty(user.firstName) ? user.firstName : '';
   user.lastName = !isEmpty(user.lastName) ? user.lastName : '';
-  user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
+  // user.phoneNumber = !isEmpty(user.phoneNumber) ? user.phoneNumber : '';
   user.email = !isEmpty(user.email) ? user.email : '';
   user.password = !isEmpty(user.password) ? user.password : '';
   user.passwordConfirm = !isEmpty(user.passwordConfirm)
@@ -34,12 +34,13 @@ module.exports = function validateSignup(user) {
     errors.lastName = 'Last Name Is Required';
   }
 
+  //*** Not sure what format the phone numbers are supposed to be in ***//
   // Validate Phone Number
   //--------------------------------------
   // If empty
   if (Validator.isEmpty(user.phoneNumber)) {
     // Input Required
-    errors.phoneNumber = 'Phone Number Is Required';
+    errors.phoneNumber = 'Phone Number Is not Required';
     // If not valid mobile phone
   } else if (!Validator.isMobilePhone(user.phoneNumber)) {
     // Throw error
@@ -51,7 +52,7 @@ module.exports = function validateSignup(user) {
   // If empty
   if (Validator.isEmpty(user.email)) {
     // Input Required
-    errors.phoneNumber = 'Email Is Required';
+    errors.email = 'Email Is Required';
     // If not valid email
   } else if (!Validator.isEmail(user.email)) {
     // Throw error
