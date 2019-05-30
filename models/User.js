@@ -34,6 +34,12 @@ const UserSchema = new Schema({
       'Password must be between 8 and 24 characters long and include at least one numeric character'
     ]
   },
+  reminders: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Reminder'
+    }
+  ],
   date: {
     type: Date,
     default: Date.now
