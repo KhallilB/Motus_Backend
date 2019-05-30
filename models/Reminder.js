@@ -6,6 +6,9 @@ const ReminderSchema = new Schema({
     type: String,
     required: [true, 'Reminder Title is required']
   },
+  description: {
+    type: String
+  },
   location: {
     type: String
   },
