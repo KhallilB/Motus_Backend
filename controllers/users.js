@@ -9,7 +9,7 @@ const User = require('../models/User');
 const validateSignUp = require('../validation/signup');
 const validateLogIn = require('../validation/login');
 
-// Function hadles user sign up; Saves user returns a token
+//***** Function hadles user sign up; Saves user returns a token
 module.exports.signUp = (req, res) => {
   // Form Validation
   const { errors, isValid } = validateSignUp(req.body);
@@ -62,8 +62,6 @@ module.exports.logIn = (req, res) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
-  console.log(req.body);
 
   passport.authenticate('local', (err, user, data) => {
     // If we get an error

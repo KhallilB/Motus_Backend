@@ -1,0 +1,3 @@
+<p><strong>What is Motus?</strong></p>
+<p>Motus is a reminder app with a slice of daily motivation that not only helps remind people of their tasks that they have to complete, but also give users a little bit of motivation to get those tasks done. It’s proven that receiving motivation releases dopamine that gives you the dive to get things done.</p>
+<p>It’s always easy to create a reminder to do anything and lose the drive to want to complete the task when the task arises. Sometimes we all need a push in the right direction. Thats where <strong>Motus</strong> comes into play. Whenever you have tasks that you haven't completed by default you’ll receive motivation throughout the day. Although if you set a time for the reminder to be completed</p>
