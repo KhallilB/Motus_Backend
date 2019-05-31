@@ -10,6 +10,7 @@ const validateSignUp = require('../validation/signup');
 const validateLogIn = require('../validation/login');
 
 //*** Function hadles user sign up; Saves user returns a token
+//---------------------------------------------------------
 const signUp = async (req, res) => {
   try {
     // Form Validation
@@ -51,6 +52,7 @@ const signUp = async (req, res) => {
 };
 
 //*** Authenticates a registered user using passport and returns a token
+//---------------------------------------------------------
 const logIn = async (req, res) => {
   try {
     // Form Validation

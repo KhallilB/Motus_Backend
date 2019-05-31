@@ -1,6 +1,7 @@
 const Reminder = require('../models/Reminder');
 
-// Creates a new reminder and saves it to database
+//*** Creates a new reminder and saves it to database
+//---------------------------------------------------------
 const newReminder = async (req, res) => {
   try {
     // Define new Reminder object
@@ -23,13 +24,16 @@ const newReminder = async (req, res) => {
 
     // Return reminder with success status
     return res.json({ reminder }).status(200);
+
+    // If we get an error
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
   }
 };
 
-// Return all the reminders
+//*** Returns all the reminders
+//---------------------------------------------------------
 const allReminders = async (req, res) => {
   try {
     // Try and find all reminders
@@ -37,6 +41,70 @@ const allReminders = async (req, res) => {
       // Return all reminders with success status
       res.json({ reminders }).status(200);
     });
+
+    // If we get an error
+  } catch (err) {
+    console.log(err);
+    return res.send(err).status(500);
+  }
+};
+
+//***  Returns a specific reminder
+//---------------------------------------------------------
+const getReminder = async (req, res) => {
+  try {
+    // Finds a reminder by its specific id
+    await Reminder.findById(req.param.id).then(reminder => {
+      // Check the item that was found
+      console.log(`Found Item: ${reminder}`);
+      // Return the reminder
+      res.json({ reminder }).status(200);
+    });
+
+    // If we get an error
+  } catch (err) {
+    console.log(err);
+    return res.send(err).status(500);
+  }
+};
+
+//*** Updates all reminders
+//---------------------------------------------------------
+const updateAllReminders = async (req, res) => {
+  try {
+    // Code here
+  } catch (err) {
+    console.log(err);
+    return res.send(err).status(500);
+  }
+};
+
+//*** Updates a specific reminder
+//---------------------------------------------------------
+const updateReminder = async (req, res) => {
+  try {
+    // Code here
+  } catch (err) {
+    console.log(err);
+    return res.send(err).status(500);
+  }
+};
+//*** Deletes all reminders
+//---------------------------------------------------------
+const deleteAllReminders = async (req, res) => {
+  try {
+    // Code here
+  } catch (err) {
+    console.log(err);
+    return res.send(err).status(500);
+  }
+};
+
+//*** Delete a specific reminder
+//---------------------------------------------------------
+const deleteReminder = async (req, res) => {
+  try {
+    // Code here
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -45,5 +113,10 @@ const allReminders = async (req, res) => {
 
 module.exports = {
   newReminder,
-  allReminders
+  allReminders,
+  getReminder,
+  updateAllReminders,
+  updateReminder,
+  deleteAllReminders,
+  deleteReminder
 };
