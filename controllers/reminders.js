@@ -83,7 +83,13 @@ const updateAllReminders = async (req, res) => {
 //---------------------------------------------------------
 const updateReminder = async (req, res) => {
   try {
-    // Code here
+    await Reminder.findByIdAndUpdate(req.param.id, req.body, {
+      new: true,
+      useFindAndModify: false
+    }).then(reminder => {
+      console.log(`Updated reminder: ${reminder}`);
+      res.send(`SUCCESS! Updated: ${reminder.title}`).status(200);
+    });
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
