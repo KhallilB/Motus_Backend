@@ -72,7 +72,6 @@ const getReminder = async (req, res) => {
 //---------------------------------------------------------
 const updateAllReminders = async (req, res) => {
   try {
-    // Code here
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -83,11 +82,15 @@ const updateAllReminders = async (req, res) => {
 //---------------------------------------------------------
 const updateReminder = async (req, res) => {
   try {
+    // Search database by the id for the document to be updated
     await Reminder.findByIdAndUpdate(req.param.id, req.body, {
-      new: true,
-      useFindAndModify: false
+      // Return updated record in response
+      new: true
+      // Then we take the updated reminder
     }).then(reminder => {
+      // Log the updated reminder to the console
       console.log(`Updated reminder: ${reminder}`);
+      // Send a message with the updated reminder and a success status
       res.send(`SUCCESS! Updated: ${reminder.title}`).status(200);
     });
   } catch (err) {
@@ -110,7 +113,15 @@ const deleteAllReminders = async (req, res) => {
 //---------------------------------------------------------
 const deleteReminder = async (req, res) => {
   try {
-    // Code here
+    // Search database for the reminder that we are trying to remove by id
+    await Reminder.findByIdAndRemove(req.param.id)
+      // Then we take deleted reminder
+      .then(reminder => {
+        // Log the deleted reminder
+        console.log(`Deleted ${reminder}`);
+        // Send a message with the deleted reminder and a success status
+        return res.send(`SUCCESS! Deleted: ${reminder.title}`).status(200);
+      });
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
