@@ -75,8 +75,14 @@ module.exports = function validateSignup(user) {
   //--------------------------------------
   // If the length is not bewtween of 8 and 24 characters
   if (!Validator.isLength(user.password, { min: 8, max: 24 })) {
-    // Throw error
-    errors.password = 'Password must be at least 8 characters long';
+    if (user.password.length < 8) {
+      // Throw error
+      errors.password = 'Password must be at least 8 characters long';
+    }
+    if (user.password.length > 24) {
+      // Throw error
+      errors.password = 'Password cannot be more than 24 characters long';
+    }
   }
 
   // Match Password and Password Confirm

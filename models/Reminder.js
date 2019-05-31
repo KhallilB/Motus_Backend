@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const ReminderSchema = new Schema({
   title: {
     type: String,
-    required: [true, 'Reminder Title is required']
+    required: [true, 'Reminder Title is required'],
+    maxlength: 50
   },
   description: {
     type: String
