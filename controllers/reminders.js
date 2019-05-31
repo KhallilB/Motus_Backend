@@ -29,6 +29,21 @@ const newReminder = async (req, res) => {
   }
 };
 
+// Return all the reminders
+const allReminders = async (req, res) => {
+  try {
+    // Try and find all reminders
+    await Reminder.find({}).then(reminders => {
+      // Return all reminders with success status
+      res.json({ reminders }).status(200);
+    });
+  } catch (err) {
+    console.log(err);
+    return res.send(err).status(500);
+  }
+};
+
 module.exports = {
-  newReminder
+  newReminder,
+  allReminders
 };
