@@ -24,4 +24,11 @@ module.exports = function validateReminder(reminder) {
     // Throw error
     errors.title = 'Title length cannot be more than 50 characters long';
   }
+
+  // Return any errors
+  return {
+    errors,
+    // If no errors return is valid
+    isValid: isEmpty(errors)
+  };
 };

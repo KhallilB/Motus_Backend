@@ -31,8 +31,10 @@ module.exports = function validateLogin(user) {
     errors.email = 'Password Is Required';
   }
 
+  // Return any errors
   return {
     errors,
+    // If no errors return is valid
     isValid: isEmpty(errors)
   };
 };

@@ -93,6 +93,7 @@ module.exports = function validateSignup(user) {
   // Return any errors
   return {
     errors,
+    // If no errors return is valid
     isValid: isEmpty(errors)
   };
 };
