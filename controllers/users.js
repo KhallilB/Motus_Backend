@@ -30,7 +30,7 @@ const signUp = async (req, res) => {
     user.email = req.body.email;
     user.password = req.body.password;
     // Check what user model looks like
-    console.log(user);
+    console.log(`User waiting to be saved: ${user}`);
     // Save user object to database
     await user.save((err, user) => {
       // If we get no errors
