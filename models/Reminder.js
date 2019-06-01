@@ -13,6 +13,9 @@ const ReminderSchema = new Schema({
   location: {
     type: String
   },
+  checked: {
+    type: Boolean
+  },
   completed: {
     type: Boolean
   },

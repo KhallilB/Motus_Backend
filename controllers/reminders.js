@@ -86,6 +86,8 @@ const updateAllReminders = async (req, res) => {
       // Send a message with all of the updated reminders and a success status
       res.send(`SUCCESS! Reminders Updated: ${reminders.title}`).status(200);
     });
+
+    // If we get an error
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -107,6 +109,8 @@ const updateReminder = async (req, res) => {
       // Send a message with the updated reminder and a success status
       res.send(`SUCCESS! Reminder Updated: ${reminder.title}`).status(200);
     });
+
+    // If we get an error
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -114,9 +118,19 @@ const updateReminder = async (req, res) => {
 };
 //*** Deletes all reminders
 //---------------------------------------------------------
-const deleteAllReminders = async (req, res) => {
+const deleteCheckedReminders = async (req, res) => {
   try {
-    await Reminder.deleteMany;
+    // Delete any reminder documents in the database if checked becomes true
+    await Reminder.deleteMany({ checked: true })
+      // We take all of the deleted reminders
+      .then(reminders => {
+        // Log all of the deleted reminders
+        console.log(`Deleted Reminders: ${reminders}`);
+        // Send a message showing all of the deleted reminders with a success status
+        res.send(`Success! Reminders Deleted: ${reminders.title}`);
+      });
+
+    // If we get an error
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -136,6 +150,8 @@ const deleteReminder = async (req, res) => {
         // Send a message with the deleted reminder and a success status
         return res.send(`SUCCESS! Deleted: ${reminder.title}`).status(200);
       });
+
+    // If we get an error
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -148,6 +164,6 @@ module.exports = {
   getReminder,
   updateAllReminders,
   updateReminder,
-  deleteAllReminders,
+  deleteCheckedReminders,
   deleteReminder
 };
