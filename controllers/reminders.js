@@ -72,6 +72,20 @@ const getReminder = async (req, res) => {
 //---------------------------------------------------------
 const updateAllReminders = async (req, res) => {
   try {
+    // Finds all reminders to be updated
+    await Reminder.update(req.param.id, req.body, {
+      // Return updated reminders in response
+      new: true,
+      // Update multiple documents
+      multi: true
+
+      // Take all the updated reminders
+    }).then(reminders => {
+      // Log all the updated reminder
+      console.log(`All reminders that were updated: ${reminders}`);
+      // Send a message with all of the updated reminders and a success status
+      res.send(`SUCCESS! Reminders Updated: ${reminders.title}`).status(200);
+    });
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
@@ -91,7 +105,7 @@ const updateReminder = async (req, res) => {
       // Log the updated reminder to the console
       console.log(`Updated reminder: ${reminder}`);
       // Send a message with the updated reminder and a success status
-      res.send(`SUCCESS! Updated: ${reminder.title}`).status(200);
+      res.send(`SUCCESS! Reminder Updated: ${reminder.title}`).status(200);
     });
   } catch (err) {
     console.log(err);
@@ -102,7 +116,7 @@ const updateReminder = async (req, res) => {
 //---------------------------------------------------------
 const deleteAllReminders = async (req, res) => {
   try {
-    // Code here
+    await Reminder.deleteMany;
   } catch (err) {
     console.log(err);
     return res.send(err).status(500);
